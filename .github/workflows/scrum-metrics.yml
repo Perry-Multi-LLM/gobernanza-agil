@@ -1,0 +1,38 @@
+name: Scrum Metrics on Commit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  calculate_scrum_metrics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install pygithub pandas
+
+      - name: Run metrics scripts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash scripts/collect_issue_data.sh
+          python scripts/calculate_metrics.py
+
+      - name: Commit metrics
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add metrics/*
+          git commit -m "Actualización automática de métricas Scrum"
+          git push
