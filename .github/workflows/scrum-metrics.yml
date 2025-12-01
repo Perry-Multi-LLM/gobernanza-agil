@@ -24,7 +24,7 @@ jobs:
 
       - name: Run metrics scripts
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           bash scripts/collect_issue_data.sh
           python scripts/calculate_metrics.py
