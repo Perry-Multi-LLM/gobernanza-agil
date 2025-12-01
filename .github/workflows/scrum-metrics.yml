@@ -1,6 +1,7 @@
 name: Scrum Metrics on Commit
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
