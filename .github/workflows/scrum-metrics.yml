@@ -39,5 +39,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add metrics/*
-          git commit -m "Actualización automática de métricas Scrum"
-          git push
+          git commit -m "Actualización automática de métricas Scrum" || echo "No hay cambios para commitear"
+          git push || echo "No hay nada que subir"
